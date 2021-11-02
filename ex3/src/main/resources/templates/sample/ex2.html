@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <ul>
+        <!--Thymeleaf에서 반복문 처리: each 속성 사용-->
+        <li th:each="dto : ${list}">
+            [[${dto}]]
+        </li>
+    </ul>
+    <hr>
+    <ul>
+        <!--반복문의 상태 객체 : 순번, 인덱스, 홀수/짝수 지정 가능-->
+        <li th:each="dto, state : ${list}">
+            [[${state.index}]] --- [[${dto}]]
+        </li>
+    </ul>
+    <hr>
+    <ul>
+        <!--제어문 처리-->
+        <li th:each="dto, state : ${list}" th:if="${dto.sno % 5 == 0}">
+            [[${dto}]]
+        </li>
+    </ul>
+    <hr>
+    <ul>
+        <!--if~else-->
+        <li th:each="dto, state : ${list}">
+            <span th:if="${dto.sno % 5 == 0}" th:text="${'---------------+dto.sno'}"></span>
+            <span th:unless="${dto.sno % 5 == 0}" th:text="${dto.first}"></span>
+        </li>
+    </ul>
+    <hr>
+    <ul>
+        <!--if~else 삼항연산자-->
+        <li th:each="dto, state : ${list}" th:text="${dto.sno % 5 == 0} ? ${dto.sno} : ${dto.first}"></li>
+    </ul>
+    <hr>
+    <ul>
+        <!--th:block-->
+        <th:block th:each="dto: ${list}">
+            <li th:text="${dto.sno % 5 == 0} ? ${dto.sno} : ${dto.first}"></li>
+        </th:block>
+    </ul>
+
+</body>
+</html>
